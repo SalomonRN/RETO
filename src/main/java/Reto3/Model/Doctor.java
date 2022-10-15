@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "doctor")
 public class Doctor implements Serializable{
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -18,7 +18,7 @@ public class Doctor implements Serializable{
 
     private Integer year;
     private String description;
-    
+
     @ManyToOne
     @JoinColumn(name="idSpecialty")
     @JsonIgnoreProperties("doctors")
@@ -95,5 +95,5 @@ public class Doctor implements Serializable{
     public void setReservations(List<Reservaciones> reservations) {
         this.reservations = reservations;
     }
-    
+
 }

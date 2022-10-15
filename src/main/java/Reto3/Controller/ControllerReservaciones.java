@@ -4,14 +4,8 @@
  */
 package Reto3.Controller;
 
-import java.awt.font.ShapeGraphicAttribute;
-import java.util.List;
-import java.util.Optional;
-import java.text.SimpleDateFormat;
 
-import Reto3.Model.Doctor;
-import Reto3.Model.ReporteReservas;
-import java.util.Date;
+import java.util.List;
 import Reto3.Model.Reservaciones;
 import Reto3.Service.ServiciosReservaciones;
 import org.springframework.beans.factory.annotation.Autowired;
