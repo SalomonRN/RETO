@@ -6,6 +6,8 @@ package Reto3.Controller;
 
 
 import java.util.List;
+
+import Reto3.Model.ContadorClientes;
 import Reto3.Model.Reservaciones;
 import Reto3.Service.ServiciosReservaciones;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,17 +22,13 @@ public class ControllerReservaciones {
     
     @Autowired
     private ServiciosReservaciones servicio;
+
+
     @GetMapping("/all")
     public List<Reservaciones> getReservations(){
 
         return servicio.getAll();
     }
-
-   /* //api/Reservation/report-dates/2020-01-01/2020-12-31
-    @GetMapping("/report-dates/{a}/{b}")
-    public String getReportes(@PathVariable Date a, @PathVariable Date b){
-        return "DATE 1 " +  a + "DATE 2" + b;
-    }*/
 
     @PostMapping("/save")
     @ResponseStatus(HttpStatus.CREATED)
@@ -56,7 +54,17 @@ public class ControllerReservaciones {
         return servicio.updateReserva(reservaciones);
 
     }
-
-
+    @GetMapping("/report-clients")
+    public List<ContadorClientes> getClientes(){
+        return servicio.reporteClientesServicio();
+    }
+    @GetMapping("/report-dates/{dateOne}/{dateTwo}")
+    public List<Reservaciones> getReservasTiempo (@PathVariable("dateOne")String dateOne, @PathVariable("dateTwo")String dateTwo ){
+        return servicio.reporteTiempoServicio(dateOne, dateTwo);
+    }
+    @GetMapping("/report-status")
+    public StatusReservas getReservaciones(){
+        return servicio.reporteStatusServicio();
+    }
 
 }

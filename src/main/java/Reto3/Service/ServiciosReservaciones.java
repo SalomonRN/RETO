@@ -4,9 +4,15 @@
  */
 package Reto3.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
+import java.text.ParseException;
 import java.util.Optional;
+import java.util.Date;
 
+import Reto3.Controller.StatusReservas;
+import Reto3.Model.ContadorClientes;
 import Reto3.Model.Mensaje;
 import Reto3.Model.Reservaciones;
 import Reto3.Repo.RepositorioReservaciones;
@@ -78,4 +84,30 @@ public class ServiciosReservaciones {
         }
 
     }
+    public List<Reservaciones> reporteTiempoServicio (String datoA, String datoB){
+        SimpleDateFormat parser = new SimpleDateFormat ("yyyy-MM-dd");
+        Date datoUno = new Date();
+        Date datoDos = new Date();
+
+        try{
+            datoUno = parser.parse(datoA);
+            datoDos = parser.parse(datoB);
+
+        }catch(ParseException evt){
+            evt.printStackTrace();
+        }if(datoUno.before(datoDos)){
+            return metodosCrud.ReservacionTiempoRepositorio(datoUno, datoDos);
+        }else{
+            return new ArrayList<>();
+        }
+    }
+    public List<ContadorClientes> reporteClientesServicio() {
+        return metodosCrud.getClientesRepositorio();
+    }
+    public StatusReservas reporteStatusServicio(){
+        List<Reservaciones>completed=metodosCrud.ReservacionStatusRepositorio("completed");
+        List<Reservaciones>cancelled=metodosCrud.ReservacionStatusRepositorio("cancelled");
+        return new StatusReservas(completed.size(), cancelled.size());
+    }
+
 }
